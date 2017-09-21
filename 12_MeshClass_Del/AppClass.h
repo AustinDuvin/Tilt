@@ -12,7 +12,7 @@ Date: 2017/05
 
 class Application
 {
-	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu";
+	String m_sProgrammer = "Austin Duvin - axd6329@g.rit.edu";
 private:
 	static ImGuiObject gui; //GUI object
 
