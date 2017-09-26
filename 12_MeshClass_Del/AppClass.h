@@ -9,9 +9,11 @@ Date: 2017/05
 
 #include "ControllerConfiguration.h"
 #include "imgui\ImGuiObject.h"
+#include "MyMesh.h"
 
 class Application
 {
+	MyMesh* m_Mesh = nullptr;
 	String m_sProgrammer = "Austin Duvin - axd6329@g.rit.edu";
 private:
 	static ImGuiObject gui; //GUI object
