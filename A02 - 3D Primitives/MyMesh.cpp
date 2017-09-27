@@ -276,7 +276,17 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	vector3 center(0.0f, 0.0f, 0.0f);
+	vector3 tip(0.0f, 0.0f, a_fHeight);
+
+	/*int subdivisions = a_nSubdivisions;
+
+	vector3 basepoints[subdivisions];*/
+
+	for (int i = 0; i < a_nSubdivisions; i++)
+	{
+		AddTri(center, vector3(), vector3());
+	}
 	// -------------------------------
 
 	// Adding information about color
