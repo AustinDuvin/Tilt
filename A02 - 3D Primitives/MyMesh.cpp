@@ -277,15 +277,26 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 
 	// Replace this with your code
 	vector3 center(0.0f, 0.0f, 0.0f);
-	vector3 tip(0.0f, 0.0f, a_fHeight);
+	vector3 tip(0.0f, a_fHeight, 0.0f);
 
 	/*int subdivisions = a_nSubdivisions;
 
 	vector3 basepoints[subdivisions];*/
 
-	for (int i = 0; i < a_nSubdivisions; i++)
+	// angle = 360/subdivisions
+	for (int i = 0; i <= a_nSubdivisions; i++)
 	{
-		AddTri(center, vector3(), vector3());
+		if (i == a_nSubdivisions)
+		{
+			AddTri(vector3(std::cos((360 / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * 0)) * a_fRadius));
+		}
+
+		else
+		{
+			AddTri(vector3(std::cos((360 / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * (i + 1))) * a_fRadius));
+		}
 	}
 	// -------------------------------
 
