@@ -278,24 +278,19 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	// Replace this with your code
 	vector3 center(0.0f, 0.0f, 0.0f);
 	vector3 tip(0.0f, a_fHeight, 0.0f);
-
-	/*int subdivisions = a_nSubdivisions;
-
-	vector3 basepoints[subdivisions];*/
-
 	// angle = 360/subdivisions
-	for (int i = 0; i <= a_nSubdivisions; i++)
+	for (int i = 0; i < a_nSubdivisions; i++)
 	{
-		if (i == a_nSubdivisions)
+		if (i == a_nSubdivisions - 1)
 		{
-			AddTri(vector3(std::cos((360 / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), center);
-			AddTri(tip, vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * 0)) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
 		}
 
 		else
 		{
-			AddTri(vector3(std::cos((360 / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), center);
-			AddTri(tip, vector3(std::cos((360 / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((360 / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((360 / a_nSubdivisions * (i + 1))) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius));
 		}
 	}
 	// -------------------------------
@@ -321,7 +316,24 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	vector3 centerB(0.0f, 0.0f, 0.0f);
+	vector3 centerT(0.0f, a_fHeight, 0.0f);
+	// angle = 360/subdivisions
+	for (int i = 0; i < a_nSubdivisions; i++)
+	{
+		if (i == a_nSubdivisions - 1)
+		{
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerB);
+			AddTri(centerT, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
+		}
+
+		else
+		{
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerB);
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT);
+		}
+	}
 	// -------------------------------
 
 	// Adding information about color
