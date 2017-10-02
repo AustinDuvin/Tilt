@@ -276,21 +276,21 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Init();
 
 	// Replace this with your code
-	vector3 center(0.0f, 0.0f, 0.0f);
-	vector3 tip(0.0f, a_fHeight, 0.0f);
+	vector3 center(0.0f, -a_fHeight / 2, 0.0f);
+	vector3 tip(0.0f, a_fHeight / 2, 0.0f);
 	// angle = 360/subdivisions
 	for (int i = 0; i < a_nSubdivisions; i++)
 	{
 		if (i == a_nSubdivisions - 1)
 		{
-			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
-			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
 		}
 
 		else
 		{
-			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
-			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), center);
+			AddTri(tip, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius));
 		}
 	}
 	// -------------------------------
@@ -316,23 +316,23 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 	Init();
 
 	// Replace this with your code
-	vector3 centerB(0.0f, 0.0f, 0.0f);
-	vector3 centerT(0.0f, a_fHeight, 0.0f);
+	vector3 centerB(0.0f, -a_fHeight / 2, 0.0f);
+	vector3 centerT(0.0f, a_fHeight/2, 0.0f);
 	// angle = 360/subdivisions
 	for (int i = 0; i < a_nSubdivisions; i++)
 	{
 		if (i == a_nSubdivisions - 1)
 		{
-			AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
-			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT);
+			AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT);
 		}
 
 		else
 		{
-			AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
-			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT);
+			AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius)); // Create the faces on the bottom of the cylinder
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
+			AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT); // Create the faces on the top of the cylinder
 		}
 	}
 	// -------------------------------
@@ -364,25 +364,23 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 	Init();
 
 	// Replace this with your code
-	vector3 centerB(0.0f, 0.0f, 0.0f);
-	vector3 centerT(0.0f, a_fHeight, 0.0f);
 	// angle = 360/subdivisions
 	for (int i = 0; i < a_nSubdivisions; i++)
 	{
 		if (i == a_nSubdivisions - 1)
 		{
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * 0)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius));
 		}
 
 		else
 		{
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, 0, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius));
-			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, -a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius));
+			AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fOuterRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fInnerRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius, a_fHeight / 2, std::sin((2 * PI / a_nSubdivisions * i)) * a_fInnerRadius));
 		}
 	}
 	// -------------------------------
@@ -441,7 +439,39 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	vector3 centerB(0.0f, -a_fRadius, 0.0f);
+	vector3 centerT(0.0f, a_fRadius, 0.0f);
+	vector3 center(0.0f, 0.0f, 0.0f);
+	// angle = 360/subdivisions
+	//for (int j = 0; j < a_nSubdivisions; j++)
+	//{
+		for (int i = 0; i < a_nSubdivisions; i++)
+		{
+			if (i == a_nSubdivisions - 1)
+			{
+				//AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius));
+				//AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
+				//AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * 0)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * 0)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT);
+			}
+
+			else
+			{
+				AddTri(centerB,
+					vector3(std::cos((2 * PI / a_nSubdivisions * (a_nSubdivisions - 1))) * std::sin((PI / a_nSubdivisions * i)) * a_fRadius, std::sin((2 * PI / a_nSubdivisions * (a_nSubdivisions - 1))) * std::sin((PI / a_nSubdivisions * i)) * a_fRadius, std::cos((PI / a_nSubdivisions * i)) * a_fRadius),
+					vector3(std::cos((2 * PI / a_nSubdivisions * (a_nSubdivisions - 1))) * std::sin((PI / a_nSubdivisions * (i + 1))) * a_fRadius, std::sin((2 * PI / a_nSubdivisions * (a_nSubdivisions - 1))) * std::sin((PI / a_nSubdivisions * (i + 1))) * a_fRadius, std::cos((PI / a_nSubdivisions * (i + 1))) * a_fRadius)); // Create the faces on the bottom of the cylinder
+
+				AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
+
+				AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, std::cos((2 * PI / a_nSubdivisions)) * std::sin((2 * PI / a_nSubdivisions)) * a_fRadius, std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius),
+					vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, std::cos((2 * PI / a_nSubdivisions)) * std::sin((2 * PI / a_nSubdivisions)) * a_fRadius, std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius),
+					centerT); // Create the faces on the top of the cylinder
+							  //AddTri(centerB, vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius)); // Create the faces on the bottom of the cylinder
+							  //AddQuad(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, -a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius));
+							  //AddTri(vector3(std::cos((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * (i + 1))) * a_fRadius), vector3(std::cos((2 * PI / a_nSubdivisions * i)) * a_fRadius, a_fRadius / (a_nSubdivisions - 1), std::sin((2 * PI / a_nSubdivisions * i)) * a_fRadius), centerT); // Create the faces on the top of the cylinder
+			}
+		}
+	//}
+	
 	// -------------------------------
 
 	// Adding information about color
