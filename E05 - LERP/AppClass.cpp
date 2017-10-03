@@ -62,7 +62,31 @@ void Application::Display(void)
 
 
 	//your code goes here
-	v3CurrentPos = vector3(0.0f, 0.0f, 0.0f);
+	static int currentStart = 0; // Keeps track of where in the vector of positions it currently is
+
+	vector3 v3Start; // Starting point of the current route
+	vector3 v3Stop; // Ending point of the current route
+
+	v3Start = m_stopsList[currentStart]; // Sets the start equal to the current start
+
+	// Sets the endpoint equal to the next point or 0 if it is at the end of the vector
+	if (currentStart == m_stopsList.size() - 1)
+		v3Stop = m_stopsList[0];
+	else
+		v3Stop = m_stopsList[currentStart + 1];
+
+	float fPercent = MapValue(fTimer, 0.0f, 5.0f, 0.0f, 1.0f); // How far along the path it is
+
+	v3CurrentPos = glm::lerp(v3Start, v3Stop, fPercent); // Lerp
+
+	// Checks to see if it is at the endpoint, if it is, go onto the next point and reset deltatime
+	if (fPercent > 1.0f)
+	{
+		currentStart++;
+		if (currentStart == m_stopsList.size())
+			currentStart = 0;
+		fTimer = m_pSystem->GetDeltaTime(uClock);
+	}
 	//-------------------
 	
 

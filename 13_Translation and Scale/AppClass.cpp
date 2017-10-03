@@ -57,7 +57,8 @@ void Application::Display(void)
 	matrix4 m4View = m_pCameraMngr->GetViewMatrix();
 	matrix4 m4Projection = m_pCameraMngr->GetProjectionMatrix();
 	matrix4 m4Model = IDENTITY_M4;
-	float fMax = 2.0f;
+	float fMax = 1.0f;
+	static int hit = 0;
 
 	vector3 v3Stop0 = vector3(0.0f, 0.0f, 0.0f);
 	vector3 v3Stop1 = vector3(5.0f, 0.0f, 0.0f);
@@ -73,13 +74,18 @@ void Application::Display(void)
 	DWORD CurrentTime = GetTickCount();
 	float fCurrentTime = (CurrentTime - StartTime) / 1000.0f;
 
-	float fPercent = MapValue(fCurrentTime, 0.0f, 1.0f, 0.0f, 5.0f);;
+	float fPercent = MapValue(fCurrentTime, 0.0f, 5.0f, 0.0f, 1.0f);
 	// Map value takes a value and makes it exist within a different range,
 	// such as mapping health from 0.0 to 275.45 between 0.0 and 1.0,
 	// the first two values are the original values, the second values are
 	// the range it is being mapped onto
 
 	vector3 v3Current = glm::lerp(v3Stop0, v3Stop1, fPercent);
+
+	if (hit > 0)
+	{
+		v3Current = glm::lerp(v3Stop1, v3Stop2, fPercent);
+	}
 	
 	//matrix4 m4Scale = glm::scale(IDENTITY_M4, vector3(2.0f,2.0f,2.0f));
 
@@ -88,9 +94,10 @@ void Application::Display(void)
 	//fPercent += 0.01f;
 	if (fPercent > fMax)
 	{
+		StartTime = 0.0f;
 		StartTime = GetTickCount();
 		//fPercent = 0.0f;
-		v3Current = glm::lerp(v3Stop1, v3Stop2, fPercent);
+		hit++;
 	}
 
 	//static float value = 0.0f;
