@@ -14,11 +14,12 @@ Date: 2017/05
 
 class Application
 {
-	std::vector<MyMesh*> objectList;  // List of meshes
-	std::vector<vector3> translationList;  // List of the positions of the meshes
+	MyMesh* m_pMesh = nullptr;//new MyMesh();
+	//std::vector<MyMesh*> objectList;  // List of meshes
+	//std::vector<vector3> translationList;  // List of the positions of the meshes
 	// An array used to hold the shape of the space invader
 	// I had to make it upside down because of the way I used my for loops
-	int shape[8][11]
+	/*int shape[8][11]
 	{
 		{ 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0 },
 		{ 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1 },
@@ -28,8 +29,8 @@ class Application
 		{ 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
 		{ 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 },
 		{ 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 }
-	};
-	int objectNumber = 0;  // The number of objects in the scene
+	};*/
+	//int objectNumber = 0;  // The number of objects in the scene
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu";
 
 private:
