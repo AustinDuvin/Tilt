@@ -130,6 +130,10 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			}
 		}
 		break;
+
+	case sf::Keyboard::R:
+		m_v3Rotation = vector3(0.0f, 0.0f, 0.0f);
+		break;
 	}
 
 	//gui
@@ -414,6 +418,42 @@ void Application::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(fSpeed);
 #pragma endregion
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		if (fMultiplier)
+		{
+			m_v3Rotation.x -= 1.0f;
+		}
+		else
+		{
+			m_v3Rotation.x += 1.0f;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+	{
+		if (fMultiplier)
+		{
+			m_v3Rotation.y -= 1.0f;
+		}
+		else
+		{
+			m_v3Rotation.y += 1.0f;
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		if (fMultiplier)
+		{
+			m_v3Rotation.z -= 1.0f;
+		}
+		else
+		{
+			m_v3Rotation.z += 1.0f;
+		}
+	}
 }
 //Joystick
 void Application::ProcessJoystick(void)

@@ -23,6 +23,8 @@ private:
 	uint m_uRenderCallCount = 0; //count of render calls per frame
 	uint m_uControllerCount = 0; //count of controllers connected
 
+	vector3 m_v3Rotation;
+
 	vector3 m_v3Mouse = vector3(); //position of the mouse in the window
 	bool m_bFPC = false;// First Person Camera flag
 	bool m_bArcBall = false;// Arcball flag
