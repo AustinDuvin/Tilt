@@ -2,7 +2,7 @@
 void Application::InitVariables(void)
 {
 	////Change this to your name and email
-	//m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu";
+	//m_sProgrammer = "Austin Duvin - axd6329@g.rit.edu";
 
 	////Alberto needed this at this position for software recording.
 	//m_pWindow->setPosition(sf::Vector2i(710, 0));
@@ -26,6 +26,7 @@ void Application::InitVariables(void)
 		m_uOrbits = 7;
 
 	float fSize = 1.0f; //initial size of orbits
+	float fRadius = 0.95f; //initial orbit radius
 
 	//creating a color using the spectrum 
 	uint uColor = 650; //650 is Red
@@ -39,7 +40,14 @@ void Application::InitVariables(void)
 	{
 		vector3 v3Color = WaveLengthToRGB(uColor); //calculate color based on wavelength
 		m_shapeList.push_back(m_pMeshMngr->GenerateTorus(fSize, fSize - 0.1f, 3, i, v3Color)); //generate a custom torus and add it to the meshmanager
+		std::vector<vector3> stops; //vector to hold the stops of the current orbit, it will eventually be added to a vector of vectors 
+		for (int j = 0; j < i; j++)
+		{
+			stops.push_back(vector3(std::cos(2 * PI / i * j) * fRadius, std::sin(2 * PI / i * j) * fRadius, 0)); //add a stop to the stops vector
+		}
+		stopList.push_back(stops); //add the vector of stops to a vector containing vectors of stops
 		fSize += 0.5f; //increment the size for the next orbit
+		fRadius += 0.5f; //increment the radius for the next orbit
 		uColor -= static_cast<uint>(decrements); //decrease the wavelength
 	}
 }
@@ -67,6 +75,12 @@ void Application::Display(void)
 	*/
 	//m4Offset = glm::rotate(IDENTITY_M4, 90.0f, AXIS_Z);
 
+	static float fTimer = 0;	//store the new timer
+	static uint uClock = m_pSystem->GenClock(); //generate a new clock for that timer
+	fTimer += m_pSystem->GetDeltaTime(uClock); //get the delta time for that timer
+
+	static std::vector<int> currentStartList;
+
 	// draw a shapes
 	for (uint i = 0; i < m_uOrbits; ++i)
 	{
@@ -74,6 +88,37 @@ void Application::Display(void)
 
 		//calculate the current position
 		vector3 v3CurrentPos = ZERO_V3;
+
+		if(currentStartList.size() < m_uOrbits)
+			currentStartList.push_back(0); // Keeps track of where in the vector of positions it currently is
+
+		vector3 v3Start; // Starting point of the current route
+		vector3 v3Stop; // Ending point of the current route
+
+		v3Start = stopList[i][currentStartList[i]]; // Sets the start equal to the current start
+
+											 // Sets the endpoint equal to the next point or 0 if it is at the end of the vector
+		if (currentStartList[i] == stopList[i].size() - 1)
+			v3Stop = stopList[i][0];
+		else
+			v3Stop = stopList[i][currentStartList[i] + 1];
+
+		float fPercent = MapValue(fTimer, 0.0f, 1.0f, 0.0f, 1.0f); // How far along the path it is
+
+		v3CurrentPos = glm::lerp(v3Start, v3Stop, fPercent); // Lerp
+
+															 // Checks to see if it is at the endpoint, if it is, go onto the next point and reset deltatime
+		if (fPercent > 1.0f)
+		{
+			for (uint j = 0; j < m_uOrbits; ++j)
+			{
+				currentStartList[j]++;
+				if (currentStartList[j] == stopList[j].size())
+					currentStartList[j] = 0;
+			}
+			fTimer = m_pSystem->GetDeltaTime(uClock);
+		}
+
 		matrix4 m4Model = glm::translate(m4Offset, v3CurrentPos);
 
 		//draw spheres
