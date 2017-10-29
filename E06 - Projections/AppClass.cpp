@@ -57,21 +57,34 @@ void Application::Display(void)
 		break;
 	case 2:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(false);
 		break;
 	case 3:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(true);
+		m_pCamera->SetPositionTargetAndUp(vector3(30.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 0.0f, -1.0f));
 		break;
 	case 4:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(true);
+		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
 		break;
 	case 5:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(true);
+		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+		m_pCamera->SetNearFar(vector2(5.0f, 20.0f));
 		break;
 	case 6:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(true);
+		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, -15.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, 1.0f, 0.0f));
+		m_pCamera->SetNearFar(vector2(0.001f, 12.0f));
 		break;
 	case 7:
 		m_pCamera->ResetCamera();
+		m_pCamera->SetPerspective(true);
+		m_pCamera->SetPositionTargetAndUp(vector3(0.0f, 0.0f, 10.0f), vector3(0.0f, 0.0f, 0.0f), vector3(0.0f, -1.0f, 0.0f));
 		break;
 	}
 
