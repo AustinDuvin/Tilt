@@ -133,6 +133,7 @@ public:
 	-	vector3 a_vTopLeft (C)
 	OUTPUT: ---
 	*/
+	void Render(MyCamera* a_pCamera, std::vector<matrix4*> a_ToWorldList);
 	void AddTri(vector3 a_vBottomLeft, vector3 a_vBottomRight, vector3 a_vTopLeft);
 	/*
 	USAGE: Adds a quad to the list points in the buffer to be compiled
