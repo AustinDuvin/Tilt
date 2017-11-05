@@ -369,6 +369,13 @@ void Application::CameraRotation(float a_fSpeed)
 		fAngleX += fDeltaMouse * a_fSpeed;
 	}
 	//Change the Yaw and the Pitch of the camera
+	quaternion q1 = glm::angleAxis(fAngleY * 9.0f, vector3(0.0f, -1.0f, 0.0f));
+	quaternion q2 = glm::angleAxis(fAngleX * 16.0f, vector3(1.0f, 0.0f, 0.0f));
+	m_qCameraRotation = q1 * q2 * m_qCameraRotation;
+	std::cout << "X: " << m_qCameraRotation.x << " Y: " << m_qCameraRotation.y << " Z: " << m_qCameraRotation.z << std::endl;
+	m_pCamera->SetTarget(m_pCamera->GetPosition() - /*vector3(vector4(0.0f, 0.0f, 10.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/ (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	m_pCamera->SetUp(vector3(0.0f, 1.0f, 0.0f) * m_qCameraRotation);
+	m_pCamera->CalculateViewMatrix();
 	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
 }
 //Keyboard
@@ -385,6 +392,36 @@ void Application::ProcessKeyboard(void)
 
 	if (fMultiplier)
 		fSpeed *= 5.0f;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		m_pCamera->SetPosition(m_pCamera->GetPosition() + /*vector3(vector4(0.0f, 0.0f, -1.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/(vector3(0.0f, 0.0f, -1.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetTarget() + (vector3(0.0f, 0.0f, -1.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetPosition() - (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		m_pCamera->SetPosition(m_pCamera->GetPosition() + /*vector3(vector4(0.0f, 0.0f, 1.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/ (vector3(0.0f, 0.0f, 1.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetTarget() + (vector3(0.0f, 0.0f, 1.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetPosition() - (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		m_pCamera->SetPosition(m_pCamera->GetPosition() + /*vector3(vector4(-1.0f, 0.0f, 0.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/ (vector3(-1.0f, 0.0f, 0.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetTarget() + (vector3(-1.0f, 0.0f, 0.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetPosition() - (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		m_pCamera->SetPosition(m_pCamera->GetPosition() + /*vector3(vector4(1.0f, 0.0f, 0.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/ (vector3(1.0f, 0.0f, 0.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetTarget() + (vector3(1.0f, 0.0f, 0.0f) * m_qCameraRotation));
+		//m_pCamera->SetTarget(m_pCamera->GetPosition() - (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	}
+	m_pCamera->SetTarget(m_pCamera->GetPosition() - /*vector3(vector4(0.0f, 0.0f, 10.0f, 0.0f) * ToMatrix4(m_qCameraRotation)));*/ (vector3(0.0f, 0.0f, 10.0f) * m_qCameraRotation));
+	//m_pCamera->SetUp(vector3(0.0f, 1.0f, 0.0f));
 #pragma endregion
 }
 //Joystick
