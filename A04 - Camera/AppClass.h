@@ -19,7 +19,7 @@ class Application
 	MyCamera* m_pCamera = nullptr; //Camera class
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer
-	quaternion m_qCameraRotation;
+	quaternion m_qCameraRotation; //Quaternion used to hold the camera's rotation
 private:
 	static ImGuiObject gui; //GUI object
 
