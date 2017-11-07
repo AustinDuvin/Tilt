@@ -88,21 +88,25 @@ void MyRigidBody::SetModelMatrix(matrix4 a_m4ModelMatrix)
 	m_v3MinG = m_v3MinL;
 	m_v3MaxG = m_v3MaxL;
 
-	static std::vector<vector3> corners;
+	// Make a vector to hold the eight corners
+	std::vector<vector3> corners;
 
+	// Bottom corners
 	corners.push_back(vector3(m_m4ToWorld * vector4(m_v3MinL/*vector3()*/, 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MaxL.x, m_v3MinL.y, m_v3MinL.z), 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MinL.x, m_v3MinL.y, m_v3MaxL.z), 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MaxL.x, m_v3MinL.y, m_v3MaxL.z), 1)));
-
+	// Top corners
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MinL.x, m_v3MaxL.y, m_v3MinL.z), 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MaxL.x, m_v3MaxL.y, m_v3MinL.z), 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(vector3(m_v3MinL.x, m_v3MaxL.y, m_v3MaxL.z), 1)));
 	corners.push_back(vector3(m_m4ToWorld * vector4(m_v3MaxL, 1)));
 
+	// Set min and max values equal to the first corner in the vector
 	m_v3MinG = corners[0];
 	m_v3MaxG = corners[0];
 
+	// Loop through the vector to find the max and min x, y, and z values
 	for (int i = 1; i < corners.size(); i++)
 	{
 		if (corners[i].x < m_v3MinG.x)
