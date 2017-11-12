@@ -293,18 +293,18 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 	vector3 aE = GetHalfWidth();
 	vector3 bE = a_pOther->GetHalfWidth();
 
-	//quaternion qRotation = quaternion(m_m4ToWorld);
-	//quaternion qOtherRotation = quaternion(a_pOther->GetModelMatrix());
+	quaternion qRotation = quaternion(m_m4ToWorld);
+	quaternion qOtherRotation = quaternion(a_pOther->GetModelMatrix());
 
 	std::vector<vector3> aU;
-	aU.push_back(vector3(m_m4ToWorld * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
-	aU.push_back(vector3(m_m4ToWorld * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
-	aU.push_back(vector3(m_m4ToWorld * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
+	aU.push_back(vector3(qRotation * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
+	aU.push_back(vector3(qRotation * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
+	aU.push_back(vector3(qRotation * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
 	//vector3 bU = vector3(qOtherRotation);
 	std::vector<vector3> bU;
-	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
-	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
-	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
+	bU.push_back(vector3(qOtherRotation * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
+	bU.push_back(vector3(qOtherRotation * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
+	bU.push_back(vector3(qOtherRotation * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
 	
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
@@ -312,11 +312,11 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 
 	vector3 t = a_pOther->GetCenterGlobal() - GetCenterGlobal();
 
-	//t = vector3(glm::dot(t, aU[0]), glm::dot(t, aU[1]), glm::dot(t, aU[2]));
+	t = vector3(glm::dot(t, aU[0]), glm::dot(t, aU[1]), glm::dot(t, aU[2]));
 
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			AbsR[i][j] = glm::abs(R[i][j]);
+			AbsR[i][j] = glm::abs(R[i][j]) + DBL_EPSILON;
 
 	// Test axes L = A0, L = A1, L = A2
 	for (int i = 0; i < 3; i++)
