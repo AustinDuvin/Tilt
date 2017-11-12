@@ -287,33 +287,44 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 	(eSATResults::SAT_NONE has a value of 0)
 	*/
 
+	// The radii of the two rigidbodies
 	float ra, rb;
+
+	// Rotation matrices that allow the other rigidbody's rotation to be projected into this rigidbody's local space
 	matrix3 R, AbsR;
 
+	// Halfwiths of the two rigidbodies
 	vector3 aE = GetHalfWidth();
 	vector3 bE = a_pOther->GetHalfWidth();
 
+	// Quaternions holding the rotations of the two rigidbodies
 	quaternion qRotation = quaternion(m_m4ToWorld);
 	quaternion qOtherRotation = quaternion(a_pOther->GetModelMatrix());
 
+	// Vector containing the local axes of this rigidbody
 	std::vector<vector3> aU;
 	aU.push_back(vector3(qRotation * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
 	aU.push_back(vector3(qRotation * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
 	aU.push_back(vector3(qRotation * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
-	//vector3 bU = vector3(qOtherRotation);
+
+	// Vector containing the local axes of the other rigidbody
 	std::vector<vector3> bU;
 	bU.push_back(vector3(qOtherRotation * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
 	bU.push_back(vector3(qOtherRotation * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
 	bU.push_back(vector3(qOtherRotation * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
 	
+	// Set up a matrix that projects the other rigidbody into this rigidbody's local space
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			R[i][j] = glm::dot(aU[i], bU[j]);
 
+	// Distance between the centers of the two rigidbodies
 	vector3 t = a_pOther->GetCenterGlobal() - GetCenterGlobal();
 
+	// Project t onto an axis
 	t = vector3(glm::dot(t, aU[0]), glm::dot(t, aU[1]), glm::dot(t, aU[2]));
 
+	// Set up an absolute value matrix to make math easier
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			AbsR[i][j] = glm::abs(R[i][j]) + DBL_EPSILON;
