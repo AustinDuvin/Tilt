@@ -287,6 +287,109 @@ uint MyRigidBody::SAT(MyRigidBody* const a_pOther)
 	(eSATResults::SAT_NONE has a value of 0)
 	*/
 
+	float ra, rb;
+	matrix3 R, AbsR;
+
+	vector3 aE = GetHalfWidth();
+	vector3 bE = a_pOther->GetHalfWidth();
+
+	//quaternion qRotation = quaternion(m_m4ToWorld);
+	//quaternion qOtherRotation = quaternion(a_pOther->GetModelMatrix());
+
+	std::vector<vector3> aU;
+	aU.push_back(vector3(m_m4ToWorld * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
+	aU.push_back(vector3(m_m4ToWorld * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
+	aU.push_back(vector3(m_m4ToWorld * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
+	//vector3 bU = vector3(qOtherRotation);
+	std::vector<vector3> bU;
+	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(1.0f, 0.0f, 0.0f, 1.0f)));
+	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(0.0f, 1.0f, 0.0f, 1.0f)));
+	bU.push_back(vector3(a_pOther->GetModelMatrix() * vector4(0.0f, 0.0f, 1.0f, 1.0f)));
+	
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			R[i][j] = glm::dot(aU[i], bU[j]);
+
+	vector3 t = a_pOther->GetCenterGlobal() - GetCenterGlobal();
+
+	//t = vector3(glm::dot(t, aU[0]), glm::dot(t, aU[1]), glm::dot(t, aU[2]));
+
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			AbsR[i][j] = glm::abs(R[i][j]);
+
+	// Test axes L = A0, L = A1, L = A2
+	for (int i = 0; i < 3; i++)
+	{
+		ra = aE[i];
+		rb = bE[0] * AbsR[i][0] + bE[1] * AbsR[i][1] + bE[2] * AbsR[i][2];
+		if (glm::abs(t[i]) > ra + rb)
+			return 1;
+	}
+
+	// Test axes L = B0, L = B1, L = B2
+	for (int i = 0; i < 3; i++)
+	{
+		ra = aE[0] * AbsR[0][i] + aE[1] * AbsR[1][i] + aE[2] * AbsR[2][i];
+		rb = bE[i];
+		if (glm::abs(t[0] * R[0][i] + t[1] * R[1][i] + t[2] * R[2][i]) > ra + rb)
+			return 1;
+	}
+
+	// Test axis L = A0 x B0
+	ra = aE[1] * AbsR[2][0] + aE[2] * AbsR[1][0];
+	rb = bE[1] * AbsR[0][2] + bE[2] * AbsR[0][1];
+	if (glm::abs(t[2] * R[1][0] - t[1] * R[2][0]) > ra + rb)
+		return 1;
+
+	// Test axis L = A0 x B1
+	ra = aE[1] * AbsR[2][1] + aE[2] * AbsR[1][1];
+	rb = bE[0] * AbsR[0][2] + bE[2] * AbsR[0][0];
+	if (glm::abs(t[2] * R[1][1] - t[1] * R[2][1]) > ra + rb)
+		return 1;
+
+	// Test axis L = A0 x B2
+	ra = aE[1] * AbsR[2][2] + aE[2] * AbsR[1][2];
+	rb = bE[0] * AbsR[0][1] + bE[1] * AbsR[0][0];
+	if (glm::abs(t[2] * R[1][2] - t[1] * R[2][2]) > ra + rb)
+		return 1;
+
+	// Test axis L = A1 x B0
+	ra = aE[0] * AbsR[2][0] + aE[2] * AbsR[0][0];
+	rb = bE[1] * AbsR[1][2] + bE[2] * AbsR[1][1];
+	if (glm::abs(t[0] * R[2][0] - t[2] * R[0][0]) > ra + rb)
+		return 1;
+
+	// Test axis L = A1 x B1
+	ra = aE[0] * AbsR[2][1] + aE[2] * AbsR[0][1];
+	rb = bE[0] * AbsR[1][2] + bE[2] * AbsR[1][0];
+	if (glm::abs(t[0] * R[2][1] - t[2] * R[0][1]) > ra + rb)
+		return 1;
+
+	// Test axis L = A1 x B2
+	ra = aE[0] * AbsR[2][2] + aE[2] * AbsR[0][2];
+	rb = bE[0] * AbsR[1][1] + bE[1] * AbsR[1][0];
+	if (glm::abs(t[0] * R[2][2] - t[2] * R[0][2]) > ra + rb)
+		return 1;
+
+	// Test axis L = A2 x B0
+	ra = aE[0] * AbsR[1][0] + aE[1] * AbsR[0][0];
+	rb = bE[1] * AbsR[2][2] + bE[2] * AbsR[2][1];
+	if (glm::abs(t[1] * R[0][0] - t[0] * R[1][0]) > ra + rb)
+		return 1;
+
+	// Test axis L = A2 x B1
+	ra = aE[0] * AbsR[1][1] + aE[1] * AbsR[0][1];
+	rb = bE[0] * AbsR[2][2] + bE[2] * AbsR[2][0];
+	if (glm::abs(t[1] * R[0][1] - t[0] * R[1][1]) > ra + rb)
+		return 1;
+
+	// Test axis L = A2 x B2
+	ra = aE[0] * AbsR[1][2] + aE[1] * AbsR[0][2];
+	rb = bE[0] * AbsR[2][1] + bE[1] * AbsR[2][0];
+	if (glm::abs(t[1] * R[0][2] - t[0] * R[1][2]) > ra + rb)
+		return 1;
+
 	//there is no axis test that separates this two objects
 	return eSATResults::SAT_NONE;
 }
