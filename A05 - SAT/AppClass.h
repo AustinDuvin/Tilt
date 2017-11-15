@@ -26,7 +26,7 @@ class Application
 	MyRigidBody* m_pCreeperRB = nullptr; //Rigid Body of the model
 	MyRigidBody* m_pSteveRB = nullptr; //Rigid Body of the model
 
-	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
+	String m_sProgrammer = "Austin Duvin - axd6329@rit.edu"; //programmer
 private:
 	static ImGuiObject gui; //GUI object
 	bool m_bGUI_Main = true; //show Main GUI window?
