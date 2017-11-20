@@ -4,23 +4,26 @@ void Application::InitVariables(void)
 {
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
-		vector3(0.0f, 5.0f, 25.0f), //Position
+		vector3(0.0f, 5.0f, 10.0f), //Position
 		vector3(0.0f, 0.0f, 0.0f),	//Target
 		AXIS_Y);					//Up
 
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 
 	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
-	m_pEntityMngr->UsePhysicsSolver();
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0, 1, 0)));
+	//m_pEntityMngr->UsePhysicsSolver();
 	
 	for (int i = 0; i < 100; i++)
 	{
 		m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Cube_" + std::to_string(i));
 		vector3 v3Position = vector3(glm::sphericalRand(12.0f));
 		v3Position.y = 0.0f;
+		v3Position.x =  -5 + (float)(i / 10);
+		v3Position.z =  -5 +(float)(i % 10);
 		matrix4 m4Position = glm::translate(v3Position);
 		m_pEntityMngr->SetModelMatrix(m4Position);
-		m_pEntityMngr->UsePhysicsSolver();
+		//m_pEntityMngr->UsePhysicsSolver();
 		//m_pEntityMngr->SetMass(i+1);
 	}
 }
@@ -47,6 +50,7 @@ void Application::Update(void)
 }
 void Application::Display(void)
 {
+	
 	// Clear the screen
 	ClearScreen();
 
