@@ -410,6 +410,35 @@ void Application::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		xRotation -= .4f;
+		if (xRotation < -22.5)
+			xRotation = -22.5;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		
+		xRotation += .4f;
+		if (xRotation > 22.5)
+			xRotation = 22.5;
+
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+
+		zRotation += .4f;
+		if (zRotation > 22.5)
+			zRotation = 22.5;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		zRotation -= .4f;
+		if (zRotation < -22.5)
+			zRotation = -22.5;
+	}
+
 #pragma endregion
 
 #pragma region Character Position

@@ -44,6 +44,7 @@ int Simplex::MyEntityManager::GetEntityIndex(String a_sUniqueID)
 	//if not found return -1
 	return -1;
 }
+
 //Accessors
 Simplex::uint Simplex::MyEntityManager::GetEntityCount(void) {	return m_uEntityCount; }
 Simplex::Model* Simplex::MyEntityManager::GetModel(uint a_uIndex)

@@ -21,6 +21,10 @@ class Application
 private:
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
 
+	float xRotation = 0.0f;
+	float zRotation = 0.0f;
+
+
 	static ImGuiObject gui; //GUI object
 	bool m_bGUI_Main = true; //show Main GUI window?
 	bool m_bGUI_Console = true; //show Credits GUI window?
