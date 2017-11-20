@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicX", "BasicX\BasicX.vcxproj", "{E745E25C-0143-42AC-A486-1395A4C972AE}"
 EndProject
@@ -125,6 +125,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_MeshClass_Del", "12_MeshClass_Del\12_MeshClass_Del.vcxproj", "{CCFDA0CC-C643-4955-9F32-CD52447E50E2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E04_Transformations_Scene", "E04 - Transformations Scene\E04_Transformations_Scene.vcxproj", "{C1808A35-38EC-482E-B2C7-18941127A3C8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_GroupProject", "_GroupProject\_GroupProject.vcxproj", "{81BCEC36-87D2-40DA-8CD1-FF071214F083}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -290,6 +292,10 @@ Global
 		{C1808A35-38EC-482E-B2C7-18941127A3C8}.Debug|x86.Build.0 = Debug|Win32
 		{C1808A35-38EC-482E-B2C7-18941127A3C8}.Release|x86.ActiveCfg = Release|Win32
 		{C1808A35-38EC-482E-B2C7-18941127A3C8}.Release|x86.Build.0 = Release|Win32
+		{81BCEC36-87D2-40DA-8CD1-FF071214F083}.Debug|x86.ActiveCfg = Debug|Win32
+		{81BCEC36-87D2-40DA-8CD1-FF071214F083}.Debug|x86.Build.0 = Debug|Win32
+		{81BCEC36-87D2-40DA-8CD1-FF071214F083}.Release|x86.ActiveCfg = Release|Win32
+		{81BCEC36-87D2-40DA-8CD1-FF071214F083}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
