@@ -24,6 +24,7 @@ private:
 	float xRotation = 0.0f;
 	float zRotation = 0.0f;
 
+	vector3 playerLocation = vector3();
 
 	static ImGuiObject gui; //GUI object
 	bool m_bGUI_Main = true; //show Main GUI window?

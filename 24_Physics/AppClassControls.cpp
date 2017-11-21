@@ -410,7 +410,8 @@ void Application::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
-
+	 
+	//rotate the level according to arrow keys
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		xRotation -= .4f;
