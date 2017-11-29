@@ -237,7 +237,7 @@ void Application::Init(String a_sApplicationName, uint a_uWidth, uint a_uHeight,
 		vector3(0.0f, 2.5f, 15.0f),//Camera position
 		vector3(0.0f, 2.5f, 0.0f),//What I'm looking at
 		AXIS_Y);//What is up
-	
+	m_pLevelMngr = LevelManager::GetInstance();
 	//Init Mesh Manager
 	m_pMeshMngr = MeshManager::GetInstance();
 
