@@ -25,6 +25,10 @@ private:
 	float xRotation = 0.0f;
 	float zRotation = 0.0f;
 
+	//"Pins" a rotation to the rotation of the level when a rotation key is released
+	float xPin = 0.0f;
+	float zPin = 0.0f;
+
 	vector3 playerLocation = vector3();
 
 	static ImGuiObject gui; //GUI object
