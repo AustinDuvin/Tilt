@@ -51,6 +51,28 @@ void Application::Update(void)
 		m_pEntityMngr->SetModelMatrix(m4Position, "Cube_" + std::to_string(i));
 
 	}
+
+	//camera follow
+	m_v3CharPos = m_pEntityMngr->GetRigidBody("Steve")->GetCenterGlobal(); //get character's position vector
+	m_v3CamPos = m_pEntityMngr->GetRigidBody("Steve")->GetCameraFollow(); //get character's position vector
+
+	if (!debugMode)
+	{
+		m_pCameraMngr->SetPositionTargetAndUp(
+			m_v3CamPos, //Position
+			m_v3CharPos,//Target
+			AXIS_Y);	//Up
+	}
+	else
+	{
+		m_pCameraMngr->SetPositionTargetAndUp(
+			vector3(0.0f, 5.0f, 25.0f), //Position
+			vector3(0.0f, 0.0f, 0.0f),	//Target
+			AXIS_Y);					//Up
+
+	}
+
+
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
 

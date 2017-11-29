@@ -251,6 +251,8 @@ public:
 	OUTPUT: is it in the array?
 	*/
 	bool IsInCollidingArray(MyRigidBody* a_pEntry);
+
+	vector3 GetCameraFollow(void);
 	
 private:
 	/*

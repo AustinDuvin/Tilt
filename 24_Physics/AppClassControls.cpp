@@ -79,6 +79,9 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	case sf::Keyboard::RShift:
 		m_bModifier = true;
 		break;
+	case sf::Keyboard::P:
+		debugMode = !debugMode;
+		break;
 	}
 
 	//gui

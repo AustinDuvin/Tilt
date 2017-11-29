@@ -65,6 +65,10 @@ private:
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
 
+	vector3 m_v3CharPos; //for camera follow
+	vector3 m_v3CamPos;
+	bool debugMode;
+
 public:
 #pragma region Constructor / Run / Destructor
 	/*
