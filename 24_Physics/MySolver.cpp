@@ -99,16 +99,19 @@ void MySolver::Update(void)
 
 	m_v3Position += m_v3Velocity;
 			
-	if (m_v3Position.y <= 0)
+	if (m_v3Position.y <= -3.0)
 	{
-		m_v3Position.y = 0;
-		m_v3Velocity.y = 0;
+		m_v3Position.y = -3.0;
+		m_v3Velocity.y = 0.0;
+
+		Reset();
 	}
 
 	m_v3Acceleration = ZERO_V3;
 }
 void MySolver::ResolveCollision(MySolver* a_pOther)
 {
+	/*
 	float fMagThis = glm::length(m_v3Velocity);
 	float fMagOther = glm::length(m_v3Velocity);
 
@@ -126,4 +129,21 @@ void MySolver::ResolveCollision(MySolver* a_pOther)
 		ApplyForce(v3Direction);
 		a_pOther->ApplyForce(-v3Direction);
 	}
+	*/
+
+	vector3 v3Direction = m_v3Position - a_pOther->m_v3Position;
+	v3Direction = glm::normalize(v3Direction);
+	v3Direction *= 0.04f;
+	ApplyForce(v3Direction);
+	a_pOther->ApplyForce(-v3Direction);
+}
+void MySolver::Reset()
+{
+	m_v3Position.x = 0;
+	m_v3Position.y = 3;
+	m_v3Position.z = 0;
+
+	m_v3Velocity.x = 0.0;
+	m_v3Velocity.y = 0.0;
+	m_v3Velocity.z = 0.0;
 }
