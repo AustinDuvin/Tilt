@@ -140,7 +140,7 @@ void MySolver::ResolveCollision(MySolver* a_pOther)
 void MySolver::Reset()
 {
 	m_v3Position.x = 0;
-	m_v3Position.y = 3;
+	m_v3Position.y = 4;
 	m_v3Position.z = 0;
 
 	m_v3Velocity.x = 0.0;

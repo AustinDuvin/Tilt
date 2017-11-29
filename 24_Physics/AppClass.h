@@ -10,6 +10,7 @@ Date: 2017/06
 #include "ControllerConfiguration.h"
 #include "imgui\ImGuiObject.h"
 
+#include "LevelManager.h"
 #include "MyEntityManager.h"
 
 namespace Simplex
@@ -23,6 +24,10 @@ private:
 
 	float xRotation = 0.0f;
 	float zRotation = 0.0f;
+
+	//"Pins" a rotation to the rotation of the level when a rotation key is released
+	float xPin = 0.0f;
+	float zPin = 0.0f;
 
 	vector3 playerLocation = vector3();
 
@@ -53,6 +58,7 @@ private:
 	LightManager* m_pLightMngr = nullptr; //Light Manager of the system
 	MeshManager* m_pMeshMngr = nullptr; //Mesh Manager
 	CameraManager* m_pCameraMngr = nullptr; //Singleton for the camera manager
+	LevelManager* m_pLevelMngr = nullptr;
 	
 	ControllerInput* m_pController[8]; //Controller
 	uint m_uActCont = 0; //Active Controller of the Application
@@ -60,6 +66,10 @@ private:
 	sf::SoundBuffer m_soundBuffer; //buffer to play sound from
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
+
+	vector3 m_v3CharPos; //for camera follow
+	vector3 m_v3CamPos;
+	bool debugMode;
 
 public:
 #pragma region Constructor / Run / Destructor

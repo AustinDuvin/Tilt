@@ -79,6 +79,9 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	case sf::Keyboard::RShift:
 		m_bModifier = true;
 		break;
+	case sf::Keyboard::P:
+		debugMode = !debugMode;
+		break;
 	}
 
 	//gui
@@ -411,20 +414,44 @@ void Application::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
 	 
+	static float rotationTimerx = 0.0f;	//Timer for lerping the x rotation back to the default rotation
+	static float rotationTimerz = 0.0f;	//Timer for lerping the z rotation back to the default rotation
+	static uint Clockx = m_pSystem->GenClock(); //generate a new clock for the x timer
+	static uint Clockz = m_pSystem->GenClock(); //generate a new clock for the z timer
+
 	//rotate the level according to arrow keys
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		xRotation -= .4f;
 		if (xRotation < -22.5)
 			xRotation = -22.5;
+		xPin = xRotation; //"Pin" current rotation
+		rotationTimerx = m_pSystem->GetDeltaTime(Clockx); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		
 		xRotation += .4f;
 		if (xRotation > 22.5)
 			xRotation = 22.5;
-
+		xPin = xRotation; //"Pin" current rotation
+		rotationTimerx = m_pSystem->GetDeltaTime(Clockx); //Reset the timer because it needs to be done for when it tries to lerp later
+	}
+	else
+	{
+		//Lerp the stage's rotation back to level
+		rotationTimerx += m_pSystem->GetDeltaTime(Clockx);
+		float percent = MapValue(rotationTimerx, 0.0f, 0.5f, 0.0f, 1.0f);
+		if (percent < 1.0f)
+		{
+			xRotation = glm::lerp(xPin, 0.0f, percent);
+		}
+		//If it has finished lerping, reset timer and pin
+		if (percent >= 1.0f)
+		{
+			rotationTimerx = m_pSystem->GetDeltaTime(Clockx);
+			xPin = 0.0f;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -432,12 +459,32 @@ void Application::ProcessKeyboard(void)
 		zRotation += .4f;
 		if (zRotation > 22.5)
 			zRotation = 22.5;
+		zPin = zRotation; //"Pin" current rotation
+		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		zRotation -= .4f;
 		if (zRotation < -22.5)
 			zRotation = -22.5;
+		zPin = zRotation; //"Pin" current rotation
+		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
+	}
+	else
+	{
+		//Lerp the stage's rotation back to level
+		rotationTimerz += m_pSystem->GetDeltaTime(Clockz);
+		float percent = MapValue(rotationTimerz, 0.0f, 0.5f, 0.0f, 1.0f);
+		if (percent < 1.0f)
+		{
+			zRotation = glm::lerp(zPin, 0.0f, percent);
+		}
+		//If it has finished lerping, reset timer and pin
+		if (percent >= 1.0f)
+		{
+			rotationTimerz = m_pSystem->GetDeltaTime(Clockz);
+			zPin = 0.0f;
+		}
 	}
 
 #pragma endregion
