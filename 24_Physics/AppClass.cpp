@@ -10,9 +10,9 @@ void Application::InitVariables(void)
 
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 
-	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0, 0, 0)));
-	//m_pEntityMngr->UsePhysicsSolver();
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Ball_" + std::to_string(0));
+	//m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0, 0.1, 0)));
+	m_pEntityMngr->UsePhysicsSolver();
 	
 	for (int i = 0; i < 100; i++)
 	{
@@ -51,6 +51,9 @@ void Application::Update(void)
 		m_pEntityMngr->SetModelMatrix(m4Position, "Cube_" + std::to_string(i));
 
 	}
+
+	m_pEntityMngr->SetModelMatrix(m_pEntityMngr->GetModelMatrix("Ball_" + std::to_string(0)), "Ball_" + std::to_string(0));
+	
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
 

@@ -124,6 +124,9 @@ private:
 	Output: ---
 	*/
 	void Init(void);
+
+	//resets the position of an object, only for debug
+	void Reset(void);
 };//class
 
 } //namespace Simplex
