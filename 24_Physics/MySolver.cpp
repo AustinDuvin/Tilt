@@ -131,6 +131,8 @@ void MySolver::ResolveCollision(MySolver* a_pOther)
 	}
 	*/
 
+	//hes definitely falling through the ground right now
+
 	vector3 v3Direction = m_v3Position - a_pOther->m_v3Position;
 	v3Direction = glm::normalize(v3Direction);
 	v3Direction *= 0.04f;

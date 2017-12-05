@@ -3,6 +3,10 @@
 using namespace Simplex;
 
 Simplex::LevelManager* Simplex::LevelManager::m_pInstance = nullptr;
+int Simplex::LevelManager::GetLevelWidth(void)
+{
+	return levelWidth;
+}
 void Simplex::LevelManager::SetLevel(char * filename)
 {
 	//file io
@@ -75,7 +79,7 @@ void Simplex::LevelManager::SetLevel(char * filename)
 		//0 is char to int conversion
 		v3Position.y = -1.0f + (heightMap[index] -'0' );
 		v3Position.x = -levelWidth/2 + (float)(index % levelWidth);
-		v3Position.z = -levelHeight/2 + (float)(index / levelHeight);
+		v3Position.z = -levelHeight/2 + (float)(index / levelWidth);
 		blockPositions.push_back(v3Position);
 	}
 }
@@ -101,6 +105,11 @@ void Simplex::LevelManager::ReleaseInstance(void)
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
+}
+
+int Simplex::LevelManager::GetLevelHeight(void)
+{
+	return levelHeight;
 }
 
 Simplex::LevelManager::LevelManager() { Init(); }

@@ -24,6 +24,8 @@ namespace Simplex
 	public:
 		static LevelManager* GetInstance();
 		static void ReleaseInstance(void);
+		int GetLevelHeight(void);
+		int GetLevelWidth(void);
 		void SetLevel(char* filename);
 		std::vector<vector3> GetBlockPositions();
 	private:

@@ -413,6 +413,27 @@ void Application::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
+
+
+	//camera controls
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+		m_pCameraMngr->MoveForward(m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+		m_pCameraMngr->MoveForward(-m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+		m_pCameraMngr->MoveSideways(-m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+		m_pCameraMngr->MoveSideways(m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+		m_pCameraMngr->MoveVertical(-m_fMovementSpeed * fMultiplier);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
+
 	 
 	static float rotationTimerx = 0.0f;	//Timer for lerping the x rotation back to the default rotation
 	static float rotationTimerz = 0.0f;	//Timer for lerping the z rotation back to the default rotation
@@ -485,6 +506,8 @@ void Application::ProcessKeyboard(void)
 			rotationTimerz = m_pSystem->GetDeltaTime(Clockz);
 			zPin = 0.0f;
 		}
+		
+
 	}
 
 #pragma endregion
