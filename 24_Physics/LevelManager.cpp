@@ -117,6 +117,7 @@ Simplex::LevelManager::LevelManager(LevelManager const& a_pOther) {}
 Simplex::LevelManager& Simplex::LevelManager::operator=(LevelManager const& a_pOther) { return *this; }
 Simplex::LevelManager::~LevelManager() { Release(); }
 
+
 void Simplex::LevelManager::Release(void)
 {
 }

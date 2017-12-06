@@ -29,7 +29,8 @@ private:
 	//"Pins" a rotation to the rotation of the level when a rotation key is released
 	float xPin = 0.0f;
 	float zPin = 0.0f;
-
+	int steveID;
+	vector3 spawnLocation;
 	vector3 playerLocation = vector3();
 
 	static ImGuiObject gui; //GUI object
