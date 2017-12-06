@@ -28,6 +28,8 @@ namespace Simplex
 		int GetLevelWidth(void);
 		void SetLevel(char* filename);
 		std::vector<vector3> GetBlockPositions();
+		int GetSpawnIndex();
+
 	private:
 		// For the next milestone I will expan the level and smooth out all blocks using newly programmed shapes
 		

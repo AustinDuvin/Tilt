@@ -24,12 +24,17 @@ void Application::InitVariables(void)
 	steveID = m_pEntityMngr->GetEntityIndex("Steve");
 	//puts player at middle of the map height offset by its dimensions
 
-	spawnLocation = vector3();
-	spawnLocation.x = playerWidth;
-	spawnLocation.y = positions[index].y + (0.5f*playerHeight);
-	spawnLocation.z = playerWidth;
+	int spawnIndex = m_pLevelMngr->GetSpawnIndex();
 
-	m_pEntityMngr->SetModelMatrix(glm::translate(spawnLocation.x,spawnLocation.y,spawnLocation.z) *glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y), "Steve");
+	//v3Position.x = -levelWidth / 2 + (float)(index % levelWidth);
+	//v3Position.z = -levelHeight / 2 + (float)(index / levelWidth);
+
+	spawnLocation = vector3();
+	spawnLocation.x =-m_pLevelMngr->GetLevelWidth()/2 + (spawnIndex % m_pLevelMngr->GetLevelWidth()) + playerWidth;
+	spawnLocation.y = positions[index].y + (0.5f*playerHeight);
+	spawnLocation.z = -m_pLevelMngr->GetLevelHeight()/2 + (spawnIndex / m_pLevelMngr->GetLevelWidth()) + playerWidth;
+
+	m_pEntityMngr->SetModelMatrix(glm::translate(spawnLocation.x,spawnLocation.y,spawnLocation.z) * glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y), "Steve");
 	
 	for (int i = 0; i < positions.size(); i++)
 	{
@@ -58,11 +63,12 @@ void Application::Update(void)
 
 	int levelHeight = m_pLevelMngr->GetLevelHeight();
 	int levelWidth = m_pLevelMngr->GetLevelWidth();
-	if (m_pEntityMngr->GetEntity(steveID)->GetPosition().y < -3.0f)
+	if (m_pEntityMngr->GetEntity(steveID)->GetPosition().y < -10.0f)
 	{
 		//reset
 		m_pEntityMngr->GetEntity(steveID)->SetPosition(spawnLocation);
 		m_pEntityMngr->GetEntity(steveID)->SetVelocity(vector3(0.0f,0.0f,0.0f));
+		//reset level rotation too
 	}
 	//set matrices of level pieces
 	for (int i = 0; i < positions.size(); i++)

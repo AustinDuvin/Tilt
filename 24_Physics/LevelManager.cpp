@@ -89,6 +89,23 @@ std::vector<vector3> Simplex::LevelManager::GetBlockPositions()
 	return blockPositions;
 }
 
+int Simplex::LevelManager::GetSpawnIndex()
+{
+	int result = -1;
+
+	for (int index = 0; index < objectMap.size(); index++)
+	{
+		if (objectMap[index] == 'S')
+		{
+			return index;
+		}
+	}
+	
+	printf("Spawn not found");
+	return result;
+	
+}
+
 LevelManager * Simplex::LevelManager::GetInstance()
 {
 	if (m_pInstance == nullptr)
