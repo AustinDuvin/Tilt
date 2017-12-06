@@ -61,6 +61,8 @@ void Application::Update(void)
 		//xRotation and yRotation are determined in app controls and applied here
 		matrix4 rotation = glm::rotate(IDENTITY_M4, xRotation, AXIS_X) * glm::rotate(IDENTITY_M4, zRotation, AXIS_Z);
 
+		//normalVector = vector3(xRotation, 0.0f, zRotation);
+
 		//rotate around 0,0,0
 
 		//rotation first

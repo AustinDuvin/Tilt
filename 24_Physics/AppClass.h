@@ -19,6 +19,7 @@ namespace Simplex
 class Application
 {
 	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
+	
 private:
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
 
@@ -72,6 +73,7 @@ private:
 	bool debugMode;
 
 public:
+	
 #pragma region Constructor / Run / Destructor
 	/*
 	USAGE: Constructor
