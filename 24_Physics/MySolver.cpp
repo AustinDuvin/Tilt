@@ -43,6 +43,10 @@ void MySolver::SetPosition(vector3 a_v3Position) { m_v3Position = a_v3Position; 
 vector3 MySolver::GetPosition(void) { return m_v3Position; }
 
 void MySolver::SetVelocity(vector3 a_v3Velocity) { m_v3Velocity = a_v3Velocity; }
+void Simplex::MySolver::SetRotation(matrix4 levelRotation)
+{
+	rotation = levelRotation;
+}
 vector3 MySolver::GetVelocity(void) { return m_v3Velocity; }
 
 void MySolver::SetMass(float a_fMass) { m_fMass = a_fMass; }
@@ -99,13 +103,13 @@ void MySolver::Update(void)
 
 	m_v3Position += m_v3Velocity;
 			
-	if (m_v3Position.y <= -3.0)
+	/*if (m_v3Position.y <= -3.0)
 	{
 		m_v3Position.y = -3.0;
 		m_v3Velocity.y = 0.0;
 
 		Reset();
-	}
+	}*/
 
 	m_v3Acceleration = ZERO_V3;
 }
@@ -133,7 +137,7 @@ void MySolver::ResolveCollision(MySolver* a_pOther)
 
 	//hes definitely falling through the ground right now
 
-	vector3 v3Direction = m_v3Position - a_pOther->m_v3Position;
+	vector3 v3Direction = matrix3(a_pOther->rotation) * vector3(0.0f, 1.0f, 0.0f);
 	v3Direction = glm::normalize(v3Direction);
 	v3Direction *= 0.04f;
 	ApplyForce(v3Direction);
@@ -141,11 +145,12 @@ void MySolver::ResolveCollision(MySolver* a_pOther)
 }
 void MySolver::Reset()
 {
-	m_v3Position.x = 0;
-	m_v3Position.y = 3;
-	m_v3Position.z = 0;
 
-	m_v3Velocity.x = 0.0;
-	m_v3Velocity.y = 0.0;
-	m_v3Velocity.z = 0.0;
+	//m_v3Position.x = 0;
+	//m_v3Position.y = 3;
+	//m_v3Position.z = 0;
+
+	//m_v3Velocity.x = 0.0;
+	//m_v3Velocity.y = 0.0;
+	//m_v3Velocity.z = 0.0;
 }

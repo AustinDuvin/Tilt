@@ -443,20 +443,20 @@ void Application::ProcessKeyboard(void)
 	//rotate the level according to arrow keys
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		xRotation -= .4f;
-		if (xRotation < -22.5)
-			xRotation = -22.5;
-		xPin = xRotation; //"Pin" current rotation
-		rotationTimerx = m_pSystem->GetDeltaTime(Clockx); //Reset the timer because it needs to be done for when it tries to lerp later
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		
 		xRotation += .4f;
 		if (xRotation > 22.5)
 			xRotation = 22.5;
 		xPin = xRotation; //"Pin" current rotation
 		rotationTimerx = m_pSystem->GetDeltaTime(Clockx); //Reset the timer because it needs to be done for when it tries to lerp later
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		xRotation -= .4f;
+		if (xRotation < -22.5)
+			xRotation = -22.5;
+		xPin = xRotation; //"Pin" current rotation
+		rotationTimerx = m_pSystem->GetDeltaTime(Clockx); //Reset the timer because it needs to be done for when it tries to lerp later
+		
 	}
 	else
 	{
@@ -476,18 +476,17 @@ void Application::ProcessKeyboard(void)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-
-		zRotation += .4f;
-		if (zRotation > 22.5)
-			zRotation = 22.5;
+		zRotation -= .4f;
+		if (zRotation < -22.5)
+			zRotation = -22.5;
 		zPin = zRotation; //"Pin" current rotation
 		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		zRotation -= .4f;
-		if (zRotation < -22.5)
-			zRotation = -22.5;
+		zRotation += .4f;
+		if (zRotation > 22.5)
+			zRotation = 22.5;
 		zPin = zRotation; //"Pin" current rotation
 		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
@@ -514,7 +513,7 @@ void Application::ProcessKeyboard(void)
 
 #pragma region Character Position
 	float fDelta = m_pSystem->GetDeltaTime(0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		m_pEntityMngr->ApplyForce(vector3(-2.0f * fDelta, 0.0f, 0.0f), "Steve");
 	}
@@ -532,7 +531,7 @@ void Application::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		m_pEntityMngr->ApplyForce(vector3(0.0f, 0.0f, 2.0f * fDelta), "Steve");
-	}
+	}*/
 #pragma endregion
 }
 //Joystick
