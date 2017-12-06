@@ -21,11 +21,16 @@ void Application::InitVariables(void)
 	int index = ((int)(m_pLevelMngr->GetLevelWidth() / 2))*m_pLevelMngr->GetLevelWidth() + (int)m_pLevelMngr->GetLevelHeight() / 2;
 	float playerHeight = 2.0f;
 	float playerWidth = 0.5f;
-
+	steveID = m_pEntityMngr->GetEntityIndex("Steve");
 	//puts player at middle of the map height offset by its dimensions
 
-	m_pEntityMngr->SetModelMatrix( glm::translate(playerWidth,positions[index].y + 0.5f*(playerHeight), playerWidth) *glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y) , "Steve");
+	spawnLocation = vector3();
+	spawnLocation.x = playerWidth;
+	spawnLocation.y = positions[index].y + (0.5f*playerHeight);
+	spawnLocation.z = playerWidth;
 
+	m_pEntityMngr->SetModelMatrix(glm::translate(spawnLocation.x,spawnLocation.y,spawnLocation.z) *glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y), "Steve");
+	
 	for (int i = 0; i < positions.size(); i++)
 	{
 		m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Cube_" + std::to_string(i));
@@ -53,7 +58,12 @@ void Application::Update(void)
 
 	int levelHeight = m_pLevelMngr->GetLevelHeight();
 	int levelWidth = m_pLevelMngr->GetLevelWidth();
-
+	if (m_pEntityMngr->GetEntity(steveID)->GetPosition().y < -3.0f)
+	{
+		//reset
+		m_pEntityMngr->GetEntity(steveID)->SetPosition(spawnLocation);
+		m_pEntityMngr->GetEntity(steveID)->SetVelocity(vector3(0.0f,0.0f,0.0f));
+	}
 	//set matrices of level pieces
 	for (int i = 0; i < positions.size(); i++)
 	{
