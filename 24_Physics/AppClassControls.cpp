@@ -476,18 +476,17 @@ void Application::ProcessKeyboard(void)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-
-		zRotation += .4f;
-		if (zRotation > 22.5)
-			zRotation = 22.5;
+		zRotation -= .4f;
+		if (zRotation < -22.5)
+			zRotation = -22.5;
 		zPin = zRotation; //"Pin" current rotation
 		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		zRotation -= .4f;
-		if (zRotation < -22.5)
-			zRotation = -22.5;
+		zRotation += .4f;
+		if (zRotation > 22.5)
+			zRotation = 22.5;
 		zPin = zRotation; //"Pin" current rotation
 		rotationTimerz = m_pSystem->GetDeltaTime(Clockz); //Reset the timer because it needs to be done for when it tries to lerp later
 	}
