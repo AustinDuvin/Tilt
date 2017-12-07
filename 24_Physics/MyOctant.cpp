@@ -254,6 +254,9 @@ bool MyOctant::IsColliding(uint a_uRBIndex)
 	//if is too big to index
 	if (a_uRBIndex >= nObjectCount)
 	{
+		return false;
+	}
+	
 		MyEntity* pEntity = m_pEntityMngr->GetEntity(a_uRBIndex);
 		MyRigidBody* pRigidBody = pEntity->GetRigidBody();
 		vector3 v3MinO = pRigidBody->GetMinGlobal();
@@ -276,7 +279,7 @@ bool MyOctant::IsColliding(uint a_uRBIndex)
 			return false;
 		if (m_v3Min.z > v3MaxO.z)
 			return false;
-	}
+	
 
 	return true;
 }
