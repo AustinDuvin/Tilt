@@ -12,7 +12,7 @@ namespace Simplex
 
 class MySolver
 {
-	matrix4 rotation;
+	matrix4 rotation; // The rotation of the MySolver
 	vector3 m_v3Acceleration = ZERO_V3; //Acceleration of the MySolver
 	vector3 m_v3Position = ZERO_V3; //Position of the MySolver
 	vector3 m_v3Velocity = ZERO_V3; //Velocity of the MySolver
@@ -68,7 +68,11 @@ public:
 	OUTPUT: ---
 	*/
 	void SetVelocity(vector3 a_v3Velocity);
-
+	/*
+	USAGE: Sets the rotation of the solver
+	ARGUMENTS: matrix4 levelRotation -> rotation matrix of the entity
+	OUTPUT: ---
+	*/
 	void SetRotation(matrix4 levelRotation);
 	/*
 	USAGE: Gets the velocity of the solver

@@ -16,6 +16,7 @@ void Simplex::MyEntity::SetModelMatrix(matrix4 a_m4ToWorld)
 	m_pModel->SetModelMatrix(m_m4ToWorld);
 	m_pRigidBody->SetModelMatrix(m_m4ToWorld);
 	m_pSolver->SetPosition(vector3(m_m4ToWorld[3]));
+	// Get the rotation of the entity and pass it to the physics solver
 	quaternion rotationQuat = glm::quat(m_m4ToWorld);
 	matrix4 rotationMatrix = glm::toMat4(rotationQuat);
 	m_pSolver->SetRotation(rotationMatrix);
