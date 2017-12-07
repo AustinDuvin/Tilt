@@ -443,7 +443,7 @@ void Application::ProcessKeyboard(void)
 	//rotate the level according to arrow keys
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		xRotation += .4f;
+		xRotation -= .4f;
 		if (xRotation > 22.5)
 			xRotation = 22.5;
 		xPin = xRotation; //"Pin" current rotation
@@ -451,7 +451,7 @@ void Application::ProcessKeyboard(void)
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		xRotation -= .4f;
+		xRotation += .4f;
 		if (xRotation < -22.5)
 			xRotation = -22.5;
 		xPin = xRotation; //"Pin" current rotation
@@ -476,7 +476,7 @@ void Application::ProcessKeyboard(void)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		zRotation -= .4f;
+		zRotation += .4f;
 		if (zRotation < -22.5)
 			zRotation = -22.5;
 		zPin = zRotation; //"Pin" current rotation
@@ -484,7 +484,7 @@ void Application::ProcessKeyboard(void)
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		zRotation += .4f;
+		zRotation -= .4f;
 		if (zRotation > 22.5)
 			zRotation = 22.5;
 		zPin = zRotation; //"Pin" current rotation

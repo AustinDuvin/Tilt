@@ -26,13 +26,11 @@ namespace Simplex
 		static void ReleaseInstance(void);
 		int GetLevelHeight(void);
 		int GetLevelWidth(void);
-		void SetLevel(char* filename);
+		void SetLevel(std::string levelName);
 		std::vector<vector3> GetBlockPositions();
 		int GetSpawnIndex();
-
+		std::vector<char> getObjectMap();
 	private:
-		// For the next milestone I will expan the level and smooth out all blocks using newly programmed shapes
-		
 		LevelManager(void);
 		LevelManager(LevelManager const& a_pOther);
 		LevelManager& operator=(LevelManager const& a_pOther);

@@ -365,7 +365,7 @@ bool MyRigidBody::IsInCollidingArray(MyRigidBody* a_pEntry)
 vector3 MyRigidBody::GetCameraFollow(void)
 {
 	vector3 behind = m_v3CenterL;
-	behind.z -= 6.0f;
+	behind.z += 8.0f;
 	behind.y += 2.0f;
 	vector3 globalBehind = vector3(m_m4ToWorld * vector4(behind, 0));
 	return m_v3CenterG + globalBehind;

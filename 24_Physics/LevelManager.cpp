@@ -1,4 +1,5 @@
 #include "LevelManager.h"
+#include <string>
 
 using namespace Simplex;
 
@@ -7,11 +8,17 @@ int Simplex::LevelManager::GetLevelWidth(void)
 {
 	return levelWidth;
 }
-void Simplex::LevelManager::SetLevel(char * filename)
+void Simplex::LevelManager::SetLevel(std::string levelName)
 {
 	//file io
+	std::string fileName( "Levels/Level_" );
+	std::string fileExtension( ".txt" );
+	std::string fullName;
+	fullName.append( fileName );
+	fullName.append( levelName );
+	fullName.append( fileExtension );
 
-	std::ifstream in("Levels/Level_0.txt");
+	std::ifstream in(fullName);
 
 	if (!in)
 	{
@@ -104,6 +111,11 @@ int Simplex::LevelManager::GetSpawnIndex()
 	printf("Spawn not found");
 	return result;
 	
+}
+
+std::vector<char> Simplex::LevelManager::getObjectMap()
+{
+	return objectMap;
 }
 
 LevelManager * Simplex::LevelManager::GetInstance()
