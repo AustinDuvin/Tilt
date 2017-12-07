@@ -2,6 +2,7 @@
 using namespace Simplex;
 void Application::InitVariables(void)
 {
+	currentLevel = std::string( "0" );
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
 		vector3(0.0f, 5.0f, 10.0f), //Position
@@ -9,13 +10,28 @@ void Application::InitVariables(void)
 		AXIS_Y);					//Up
 
 	//level manager load first level, hard coded for now
-	m_pLevelMngr->SetLevel("Level_0");
+	m_pLevelMngr->SetLevel(currentLevel);
 
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 
 	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
 	m_pEntityMngr->UsePhysicsSolver();
 	std::vector<vector3> positions = m_pLevelMngr->GetBlockPositions();
+
+	objectMap = m_pLevelMngr->getObjectMap();
+	int nHoles = 0;
+	
+	for( int i = 0; i < objectMap.size(); i++ )
+	{
+		if( objectMap[i] == 'H' )
+		{
+			nHoles++;
+		}
+		if( objectMap[i] == 'G' )
+		{
+			goalIndex = i;
+		}
+	}
 	
 	//no clue if this is right every time but hopefully is
 	int index = ((int)(m_pLevelMngr->GetLevelWidth() / 2))*m_pLevelMngr->GetLevelWidth() + (int)m_pLevelMngr->GetLevelHeight() / 2;
@@ -31,12 +47,18 @@ void Application::InitVariables(void)
 
 	spawnLocation = vector3();
 	spawnLocation.x =-m_pLevelMngr->GetLevelWidth()/2 + (spawnIndex % m_pLevelMngr->GetLevelWidth()) + playerWidth;
-	spawnLocation.y = positions[index].y + (0.5f*playerHeight);
+	spawnLocation.y = positions[spawnIndex].y + (0.5f*playerHeight);
 	spawnLocation.z = -m_pLevelMngr->GetLevelHeight()/2 + (spawnIndex / m_pLevelMngr->GetLevelWidth()) + playerWidth;
 
-	m_pEntityMngr->SetModelMatrix(glm::translate(spawnLocation.x,spawnLocation.y,spawnLocation.z) * glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y), "Steve");
+	goalPos = vector3();
+	goalPos.x = -m_pLevelMngr->GetLevelWidth() / 2 + (goalIndex % m_pLevelMngr->GetLevelWidth()) + playerWidth;
+	goalPos.y = positions[goalIndex].y + (0.5f*playerHeight);
+	goalPos.z = -m_pLevelMngr->GetLevelHeight() / 2 + (goalIndex / m_pLevelMngr->GetLevelWidth()) + playerWidth;
 	
-	for (int i = 0; i < positions.size(); i++)
+	//m_pMeshMngr
+	m_pEntityMngr->SetModelMatrix(glm::translate(spawnLocation.x,spawnLocation.y,spawnLocation.z) * glm::rotate(IDENTITY_M4, 180.0f, AXIS_Y), "Steve");
+
+	for (int i = 0; i < positions.size() - nHoles; i++)
 	{
 		m_pEntityMngr->AddEntity("Minecraft\\Cube.obj", "Cube_" + std::to_string(i));
 		//vector3 v3Position = vector3(glm::sphericalRand(12.0f));
@@ -63,29 +85,41 @@ void Application::Update(void)
 
 	int levelHeight = m_pLevelMngr->GetLevelHeight();
 	int levelWidth = m_pLevelMngr->GetLevelWidth();
+
+	//MeshManager::GetInstance()->AddWireCubeToRenderList( glm::translate( IDENTITY_M4, origin ) *
+	//	glm::scale( vector3( halfDimension.x * 2, halfDimension.y * 2, halfDimension.z * 2 ) ), vector3( 50, 0, 255 ), RENDER_WIRE );
+
 	if (m_pEntityMngr->GetEntity(steveID)->GetPosition().y < -10.0f)
 	{
 		//reset
 		m_pEntityMngr->GetEntity(steveID)->SetPosition(spawnLocation);
+
 		m_pEntityMngr->GetEntity(steveID)->SetVelocity(vector3(0.0f,0.0f,0.0f));
 		//reset level rotation too
 	}
 	//set matrices of level pieces
+	int fuck = 0;
 	for (int i = 0; i < positions.size(); i++)
 	{
 		//m_pEntityMngr->GetEntityIndex("Cube_" + std::to_string(i))
 		//xRotation and yRotation are determined in app controls and applied here
-		matrix4 rotation = glm::rotate(IDENTITY_M4, xRotation, AXIS_X) * glm::rotate(IDENTITY_M4, zRotation, AXIS_Z);
+		if(objectMap[i] =='H' )
+		{
+		}
+		else
+		{
+			matrix4 rotation = glm::rotate(IDENTITY_M4, xRotation, AXIS_X) * glm::rotate(IDENTITY_M4, zRotation, AXIS_Z);
 
-		//normalVector = vector3(xRotation, 0.0f, zRotation);
+			//normalVector = vector3(xRotation, 0.0f, zRotation);
 
-		//rotate around 0,0,0
+			//rotate around 0,0,0
 
-		//rotation first
-		matrix4 m4Position = rotation * glm::translate(positions[i]);
+			//rotation first
+			matrix4 m4Position = rotation * glm::translate(positions[i]);
 
-		m_pEntityMngr->SetModelMatrix(m4Position, "Cube_" + std::to_string(i));
-
+			m_pEntityMngr->SetModelMatrix(m4Position, "Cube_" + std::to_string(fuck));
+			fuck++;
+		}
 	}
 
 	m_pEntityMngr->SetModelMatrix(m_pEntityMngr->GetModelMatrix("Ball_" + std::to_string(0)), "Ball_" + std::to_string(0));
@@ -132,6 +166,8 @@ void Application::Update(void)
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);
 	//m_pEntityMngr->AddEntityToRenderList(-1, true);
+
+
 }
 void Application::Display(void)
 {
