@@ -122,7 +122,7 @@ void Application::Update(void)
 	CameraRotation();
 
 	//Update Entity Manager and Octant
-	m_uOctantLevels = 1;
+	//m_uOctantLevels = 2;
 	m_pRoot = new MyOctant(m_uOctantLevels, 5);
 	m_pEntityMngr->Update();
 
